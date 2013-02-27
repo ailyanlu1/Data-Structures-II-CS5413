@@ -19,11 +19,15 @@ public class pgm1 {
                 System.out.println("Found file " + filename);
                 RecordSorter sorter = new RecordSorter();
 
+                String firstNameFileName = "firstName_" + filename;
+                Map<String,String> firstNameSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
+                    fileName, "firstName", firstNameFileName);
+
                 String lastNameFileName = "lastName_" + filename;
-                Map<String,String> lastNameSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(filename,
-                    "lastName", lastNameFileName);
+                Map<String,String> lastNameSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
+                    firstNameFileName, "lastName", lastNameFileName);
 
-
+                
             }
         }
     }
