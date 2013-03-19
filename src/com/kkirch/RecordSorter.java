@@ -1,3 +1,4 @@
+package com.kkirch;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,7 @@ public class RecordSorter {
 
     public Map<String,String> sortRecordsFromFileByKeyWithOutputFile(
         String inFileName, 
-        String sortKey,
+        Comparator<Record> comparator,
         String outFileName) throws FileNotFoundException, IOException {
 
         Map<String,String> performanceData = new HashMap<String,String>();
@@ -47,7 +49,7 @@ public class RecordSorter {
             List<Record> unsortedSublist = new ArrayList<Record>(unsortedRecords.subList(0, i + 1));
             System.out.println("\nGoing to sort -> " + unsortedSublist);
             long startTime = System.nanoTime();
-            sortList(unsortedSublist, sortKey);
+            sortList(unsortedSublist, comparator);
             //unsortedSublist now sorted...
             System.out.println("Sorted list to be -> " + unsortedSublist);
             long endTime = System.nanoTime();
@@ -80,32 +82,33 @@ public class RecordSorter {
         return performanceData;
     }
 
-    private void sortList(List<Record> records, String sortKey) {
-        sortList(records, sortKey, 0, records.size() - 1);
+    private void sortList(List<Record> records, Comparator<Record> comparator) {
+        sortList(records, comparator, 0, records.size() - 1);
     }
 
-    private void sortList(List<Record> records, String sortKey, int left, int right) {
+    private void sortList(List<Record> records, Comparator<Record> comparator, int left, int right) {
       if (left < right) {
-            int pivotIndex = randPartition(records, sortKey, left, right);
-            sortList(records, sortKey, left, pivotIndex - 1);
-            sortList(records, sortKey, pivotIndex + 1, right);
+            int pivotIndex = randPartition(records, comparator, left, right);
+            sortList(records, comparator, left, pivotIndex - 1);
+            sortList(records, comparator, pivotIndex + 1, right);
         }
     }
 
-    private int randPartition(List<Record> records, String sortKey, int left, int right) {
+    private int randPartition(List<Record> records, Comparator<Record> comparator, int left, int right) {
         int randPivot =  left + (int)(Math.random() * ((right - left) + 1));
         swap(records, right, randPivot);
-        return partition(records, sortKey, left, right);
+        return partition(records, comparator, left, right);
     }
 
-    private int partition(List<Record> records, String sortKey, int left, int right) {
+    private int partition(List<Record> records, Comparator<Record> comparator, int left, int right) {
  
         // Select pivot element
         Record pivot = records.get(right);
  
         int i = left - 1;
         for(int j = left; j < right; ++j) {
-            if(Record.compareRecordsWithKey(records.get(j), pivot, sortKey) < 0) {
+            int comparison = comparator.compare(records.get(j), pivot);
+            if(comparison < 0) {
                 i++;
                 swap(records, i, j);
             }

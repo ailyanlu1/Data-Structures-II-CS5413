@@ -1,10 +1,10 @@
+package com.kkirch;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Map;
 
-public class pgm1 {
-    public static void main(String ... args) throws Exception {
+public class Pgm1 {
+    public static void main(String...args) throws Exception {
         if (args.length != 1) {
             System.out.println("Invalid Usage -- please supply a filename as an argument");
             System.out.println("`java -jar pgm1-...jar 10.txt`");
@@ -17,17 +17,13 @@ public class pgm1 {
             } else {
                 //start processing
                 System.out.println("Found file " + filename);
+                
                 RecordSorter sorter = new RecordSorter();
 
-                String firstNameFileName = "firstName_" + filename;
-                Map<String,String> firstNameSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
-                    fileName, "firstName", firstNameFileName);
+                String nameFileName = "name_" + filename;
+                Map<String,String> nameSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
+                    filename, new NameComparator(), nameFileName);
 
-                String lastNameFileName = "lastName_" + filename;
-                Map<String,String> lastNameSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
-                    firstNameFileName, "lastName", lastNameFileName);
-
-                
             }
         }
     }
