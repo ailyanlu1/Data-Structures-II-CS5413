@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class RecordSorter {
         Comparator<Record> comparator,
         String outFileName) throws FileNotFoundException, IOException {
 
-        Map<String,String> performanceData = new HashMap<String,String>();
+        Map<String,String> performanceData = new LinkedHashMap<String,String>();
 
         File inFile = new File(inFileName);
         File outFile = new File(outFileName);
@@ -43,15 +43,11 @@ public class RecordSorter {
             System.out.println("Failed to close buffered reader");
         }
 
-        System.out.println("Got records -> " + unsortedRecords);
-
         for (int i = 0; i < numberOfRecords; ++i) {
             List<Record> unsortedSublist = new ArrayList<Record>(unsortedRecords.subList(0, i + 1));
-            System.out.println("\nGoing to sort -> " + unsortedSublist);
             long startTime = System.nanoTime();
             sortList(unsortedSublist, comparator);
             //unsortedSublist now sorted...
-            System.out.println("Sorted list to be -> " + unsortedSublist);
             long endTime = System.nanoTime();
             long totalTime = (endTime - startTime) / 1000; //convert to microseconds
             performanceData.put((i + 1) + "", totalTime + "");

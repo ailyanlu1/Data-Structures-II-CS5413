@@ -20,30 +20,44 @@ public class Record {
         zipcode = Integer.parseInt(parts[4]);
     }
 
+    public Record(final String lastName,
+        final String firstName,
+        final String address,
+        final String city,
+        final String state,
+        final int zipcode){
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
+
     public String toDelimitedString() {
         return new StringBuilder()
-            .append(firstName).append(" ").append(lastName)
-            .append(" | ")
-            .append(address)
-            .append(" | ")
-            .append(city)
-            .append(" | ")
-            .append(state)
-            .append(" | ")
-            .append(zipcode).toString();
+        .append(firstName).append(" ").append(lastName)
+        .append(" | ")
+        .append(address)
+        .append(" | ")
+        .append(city)
+        .append(" | ")
+        .append(state)
+        .append(" | ")
+        .append(zipcode).toString();
 
     }
 
     @Override
     public String toString() {
         return new StringBuilder()
-            .append("Record = {")
-            .append("First Name : ").append(firstName)
-            .append(", Last Name : ").append(lastName)
-            .append(", Address : ").append(address)
-            .append(", City : ").append(city)
-            .append(", State : ").append(state)
-            .append(", Zipcode : ").append(zipcode)
-            .append(" }").toString();
+        .append("Record = {")
+        .append("First Name : ").append(firstName)
+        .append(", Last Name : ").append(lastName)
+        .append(", Address : ").append(address)
+        .append(", City : ").append(city)
+        .append(", State : ").append(state)
+        .append(", Zipcode : ").append(zipcode)
+        .append(" }").toString();
     }
 }

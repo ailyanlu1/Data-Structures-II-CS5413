@@ -2,6 +2,8 @@ package com.kkirch;
 
 import java.io.File;
 import java.util.Map;
+import static java.util.Map.Entry;
+import java.util.Set;
 
 public class Pgm1 {
     public static void main(String...args) throws Exception {
@@ -24,6 +26,22 @@ public class Pgm1 {
                 Map<String,String> nameSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
                     filename, new NameComparator(), nameFileName);
 
+                System.out.println("Performance Date for name sort");
+                System.out.println("=========================================");
+                for (Entry<String,String> entry : nameSortPerformance.entrySet()) {
+                    System.out.println(String.format("%6s : %s", entry.getKey(), entry.getValue()));
+                }
+
+                String addressFileName = "address_" + filename;
+                Map<String,String> addressSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
+                    nameFileName, new AddressComparator(), addressFileName);
+
+                System.out.println("");
+                System.out.println("Performance Date for address sort");
+                System.out.println("=========================================");
+                for (Entry<String,String> entry : addressSortPerformance.entrySet()) {
+                    System.out.println(String.format("%6s : %s", entry.getKey(), entry.getValue()));
+                }
             }
         }
     }
