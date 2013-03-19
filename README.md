@@ -18,10 +18,10 @@ of your own choice in order to solve the problem as fast as possible.
 1. Input/Output:
 Read in an input data file in a plain text format as an argument.
 
-Example:
-$pgm1 1000.txt
-or
-$java pgm1 1000.txt
+    Example:
+    $pgm1 1000.txt
+    or
+    $java pgm1 1000.txt
 
 The program should be written in C, C++ or Java (pgm1.c, pgm1.cpp or pgm1.java) and compile and runnable 
 on CSX in its final version. 
@@ -33,17 +33,17 @@ by " handin" command on CSA.
 
 The format of your input and output data file is specified as follows:
 
-10
-Stocker Norris | 3631 W. 8th Ln. #264 | TRUCKEE | CA | 96161
-Saylor Alisya | 1854 W. Green Ln. #89 | LITTLE SUAMICO | WI | 54141
-Moore Lucy | 1471 E. Forest Rd. #139 | TALMAGE | KS | 67482
-Ryals Larson | 8385 E. Hillcrest St. | LEWISTON | MN | 55952
-Sherill Hardy | 7313 N. Franklin Blvd. | TAHLEQUAH | OK | 74464
-Justin Ray | 9251 N. Cherry Way #221 | MAMARONECK | NY | 10543
-Justin Ray | 4357 N. Broadway Way | LAKELAND | LA | 70752
-Earhart Alanis | 7515 N. Washington Way #72 | LOUISE | TX | 77455
-Draudy Joleen | 201 NE 23rd St. | HOUSTON | TX | 77061
-Bishop Holden | PO Box 409 | CARONA | KS | 66773
+    10
+    Stocker Norris | 3631 W. 8th Ln. #264 | TRUCKEE | CA | 96161
+    Saylor Alisya | 1854 W. Green Ln. #89 | LITTLE SUAMICO | WI | 54141
+    Moore Lucy | 1471 E. Forest Rd. #139 | TALMAGE | KS | 67482
+    Ryals Larson | 8385 E. Hillcrest St. | LEWISTON | MN | 55952
+    Sherill Hardy | 7313 N. Franklin Blvd. | TAHLEQUAH | OK | 74464
+    Justin Ray | 9251 N. Cherry Way #221 | MAMARONECK | NY | 10543
+    Justin Ray | 4357 N. Broadway Way | LAKELAND | LA | 70752
+    Earhart Alanis | 7515 N. Washington Way #72 | LOUISE | TX | 77455
+    Draudy Joleen | 201 NE 23rd St. | HOUSTON | TX | 77061
+    Bishop Holden | PO Box 409 | CARONA | KS | 66773
 
 
 where 10 is the number of input records. Each line is a record. 
@@ -65,9 +65,9 @@ by "name", as an input and then perform another round of sorting by "address"
 then save it as named "address_inputfilename.txt", e.g., address_1000.txt.
 
 
-1)sort by last name --> 2)sort by first name -->(save the result) --> 
-(read back again) --> 3)sort by state --> 4)sort by city --> 
-5)sort by zip code --> 6)sort by street address.
+    1)sort by last name --> 2)sort by first name -->(save the result) --> 
+    (read back again) --> 3)sort by state --> 4)sort by city --> 
+    5)sort by zip code --> 6)sort by street address.
 
 Or, you may perform an in-place sorting if that's your preference. 
 
@@ -93,14 +93,14 @@ generate and show an output data file named "name_inputfilename_time.txt" and
 
 The format will be as follows:
 
-1    10
-2    20
-3    40
-4    60
-5    100
-:
-:
-1000 30000
+    1    10
+    2    20
+    3    40
+    4    60
+    5    100
+    :
+    :
+    1000 30000
 
 Submit a performance analysis report in pdf format,
 in which describe the algorithm(s) you chose to use;
@@ -110,10 +110,11 @@ and observation and discussion over your results.
 
 
 4. How to submit:
--. Email a zipped file
--. Source program file
--. at least one input data file that you created and tested.
--. Analysis report (pdf format)
+
+* Email a zipped file
+* Source program file
+* at least one input data file that you created and tested.
+* Analysis report (pdf format)
   
 
 
