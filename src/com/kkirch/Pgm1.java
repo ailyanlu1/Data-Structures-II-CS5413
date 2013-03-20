@@ -1,12 +1,17 @@
 package com.kkirch;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Map;
 import static java.util.Map.Entry;
-import java.util.Set;
 
 public class Pgm1 {
-    public static void main(String...args) throws Exception {
+
+    public static void main(String... args) throws Exception {
+        
+        Sorter<Record> sorter = new InsertionsortSorter();
+        
         if (args.length != 1) {
             System.out.println("Invalid Usage -- please supply a filename as an argument");
             System.out.println("`java -jar pgm1-...jar 10.txt`");
@@ -19,28 +24,95 @@ public class Pgm1 {
             } else {
                 //start processing
                 System.out.println("Found file " + filename);
-                
-                RecordSorter sorter = new RecordSorter();
+
+                String filename_number = filename.split("\\.")[0];
+
+                RecordSorter recordSorter = new RecordSorter();
 
                 String nameFileName = "name_" + filename;
-                Map<String,String> nameSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
-                    filename, new NameComparator(), nameFileName);
+                String lNameFileName = "lName_" + filename;
+                Map<String, String> lNameSortPerformance = recordSorter.sortRecordsFromFileByKeyWithOutputFile(
+                        filename, 
+                        new LastNameComparator(), 
+                        sorter,
+                        lNameFileName);
+                
+                String fNameFileName = "fName_" + filename;
+                Map<String, String> fNameSortPerformance = recordSorter.sortRecordsFromFileByKeyWithOutputFile(
+                        lNameFileName, 
+                        new FirstNameComparator(), 
+                        sorter,
+                        nameFileName);
+                
+                new File(lNameFileName).delete();
 
-                System.out.println("Performance Date for name sort");
-                System.out.println("=========================================");
-                for (Entry<String,String> entry : nameSortPerformance.entrySet()) {
-                    System.out.println(String.format("%6s : %s", entry.getKey(), entry.getValue()));
+
+                File namePerformanceFile = new File("name_" + filename_number + "_time.txt");
+
+                if (!namePerformanceFile.exists()) {
+                    namePerformanceFile.createNewFile();
                 }
 
-                String addressFileName = "address_" + filename;
-                Map<String,String> addressSortPerformance = sorter.sortRecordsFromFileByKeyWithOutputFile(
-                    nameFileName, new AddressComparator(), addressFileName);
+                BufferedWriter bw = new BufferedWriter(new FileWriter(namePerformanceFile));
+                for (Entry<String, String> entry : fNameSortPerformance.entrySet()) {
+                    bw.write(String.format("%6s %s\n", entry.getKey(), entry.getValue()));
+                }
 
-                System.out.println("");
-                System.out.println("Performance Date for address sort");
-                System.out.println("=========================================");
-                for (Entry<String,String> entry : addressSortPerformance.entrySet()) {
-                    System.out.println(String.format("%6s : %s", entry.getKey(), entry.getValue()));
+                try {
+                    bw.close();
+                } catch (Exception e) {
+                    System.out.println("Failed to close buffered writer");
+                }
+
+
+                String addressFileName = "address_" + filename;
+                String stateFileName = "state_address_" + filename;
+                String cityFileName = "city_address_" + filename;
+                String zipFileName = "zip_address_" + filename;
+                
+                Map<String, String> stateSortPerformance = recordSorter.sortRecordsFromFileByKeyWithOutputFile(
+                        nameFileName, 
+                        new StateComparator(), 
+                        sorter,
+                        stateFileName);
+                
+                Map<String, String> citySortPerformance = recordSorter.sortRecordsFromFileByKeyWithOutputFile(
+                        stateFileName, 
+                        new CityComparator(), 
+                        sorter,
+                        cityFileName);
+                
+                Map<String, String> zipSortPerformance = recordSorter.sortRecordsFromFileByKeyWithOutputFile(
+                        cityFileName, 
+                        new ZipcodeComparator(), 
+                        sorter,
+                        zipFileName);
+                
+                Map<String, String> addressSortPerformance = recordSorter.sortRecordsFromFileByKeyWithOutputFile(
+                        zipFileName, 
+                        new AddressComparator(), 
+                        sorter,
+                        addressFileName);
+                
+                new File(stateFileName).delete();
+                new File(cityFileName).delete();
+                new File(zipFileName).delete();
+
+                File addressPerformanceFile = new File("address_" + filename_number + "_time.txt");
+
+                if (!addressPerformanceFile.exists()) {
+                    addressPerformanceFile.createNewFile();
+                }
+
+                bw = new BufferedWriter(new FileWriter(addressPerformanceFile));
+                for (Entry<String, String> entry : addressSortPerformance.entrySet()) {
+                    bw.write(String.format("%6s %s\n", entry.getKey(), entry.getValue()));
+                }
+
+                try {
+                    bw.close();
+                } catch (Exception e) {
+                    System.out.println("Failed to close buffered writer");
                 }
             }
         }
