@@ -8,7 +8,7 @@ This app has 2 mains in it, one for processing a records file and one to generat
 
 ####To Run generator
 
-`java -cp path/to/pgm1...jar <number of records to generate>`
+`java -cp path/to/pgm1...jar com.kkirch.generator.RecordGenerator <number of records to generate>`
 
 ####To Run processor/sorter
 
